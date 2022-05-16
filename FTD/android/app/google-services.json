@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:418497274240:android:e0e9c7715a6acf9849e165",
         "android_client_info": {
-          "package_name": "com.leojr.fasttravel"
+          "package_name": "com.example.fasttravel"
         }
       },
       "oauth_client": [
@@ -35,7 +35,7 @@
               "client_id": "418497274240-mrepjor7f36n60jlba7qiqje0iu1s9tv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.leojr.fasttravel"
+                "bundle_id": "com.example.fasttravel"
               }
             }
           ]
@@ -71,7 +71,7 @@
               "client_id": "418497274240-mrepjor7f36n60jlba7qiqje0iu1s9tv.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.leojr.fasttravel"
+                "bundle_id": "com.example.fasttravel"
               }
             }
           ]

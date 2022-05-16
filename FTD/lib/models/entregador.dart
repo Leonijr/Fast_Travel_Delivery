@@ -1,28 +1,31 @@
-class Client {
-  late final String? id;
-  late final String? name;
-  late final String? email;
-  late final String? endereco;
-  late final String? password;
-  late final String? confirmPass;
+class Entregador {
+  late final String id;
+  late final String name;
+  late final String email;
+  late final String cpf;
+  late final String veiculo;
+  late final String password;
+  late final String confirmPassword;
 
 /* método construtor utilizado para inicializar o estado do objeto e também
 disparar algum processo necessário quanto a instanciação da classe */
-  Client(
+  Entregador(
     this.name,
     this.email,
-    this.endereco,
+    this.cpf,
+    this.veiculo,
     this.password,
-    this.confirmPass,
+    this.confirmPassword,
   );
 
   /* Método para converter objetos em formato MAP em obj academic */
-  Client.fromMap(Map<String, dynamic> map)
+  Entregador.fromMap(Map<String, dynamic> map)
       : name = map['name'],
         email = map['email'],
-        endereco = map['endereco'],
+        cpf = map['cpf'],
+        veiculo = map['veiculo'],
         password = map['password'],
-        confirmPass = map['confirmPass'];
+        confirmPassword = map['confirmPassword'];
 
   // método para conversão para MAP
 
@@ -30,9 +33,10 @@ disparar algum processo necessário quanto a instanciação da classe */
     return {
       'name': name,
       'email': email,
-      'endereco': endereco,
+      'cpf': cpf,
+      'veiculo': veiculo,
       'password': password,
-      'confirmPass': confirmPass
+      'confirmPassword': confirmPassword,
     };
   }
 }

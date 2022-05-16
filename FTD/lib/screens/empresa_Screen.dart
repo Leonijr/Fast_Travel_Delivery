@@ -1,5 +1,8 @@
+import 'package:fasttravel/models/empresa.dart';
+import 'package:fasttravel/models/empresa_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:validatorless/validatorless.dart';
 
 class addEmpresa extends StatefulWidget {
   const addEmpresa({Key? key}) : super(key: key);
@@ -47,7 +50,7 @@ class _addEmpresaState extends State<addEmpresa> {
                     color: Colors.green[200],
                     fontSize: 20,
                   )),
-              const addEmpr(),
+              const AddEmpr(),
             ],
           ),
         ),
@@ -56,9 +59,22 @@ class _addEmpresaState extends State<addEmpresa> {
   }
 }
 
-class addEmpr extends StatelessWidget {
-  const addEmpr({Key? key}) : super(key: key);
+class AddEmpr extends StatefulWidget {
+  const AddEmpr({Key? key}) : super(key: key);
 
+  @override
+  State<AddEmpr> createState() => _AddEmprState();
+}
+
+class _AddEmprState extends State<AddEmpr> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController cnpjController = TextEditingController();
+  TextEditingController enderecoController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPassController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -68,122 +84,173 @@ class addEmpr extends StatelessWidget {
           height: 700,
           child: SingleChildScrollView(
             child: Card(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Nome',
-                    style: GoogleFonts.macondo(
-                        color: Colors.black87, fontSize: 15),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(10),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      'Nome',
+                      style: GoogleFonts.macondo(
+                          color: Colors.black87, fontSize: 15),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: TextFormField(
+                        controller: nameController,
+                        keyboardType: TextInputType.text,
+                        validator: Validatorless.required('Nome obrigatório'),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(10),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Text(
-                    'email',
-                    style: GoogleFonts.macondo(
-                        color: Colors.black87, fontSize: 15),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(10),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    Text(
+                      'email',
+                      style: GoogleFonts.macondo(
+                          color: Colors.black87, fontSize: 15),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: TextFormField(
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: Validatorless.multiple([
+                          Validatorless.required('Email obrigatório'),
+                          Validatorless.email('email inválido'),
+                        ]),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(10),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Text(
-                    'cnpj',
-                    style: GoogleFonts.macondo(
-                        color: Colors.black87, fontSize: 15),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(10),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    Text(
+                      'cnpj(apenas números)',
+                      style: GoogleFonts.macondo(
+                          color: Colors.black87, fontSize: 15),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: TextFormField(
+                        controller: cnpjController,
+                        keyboardType: TextInputType.number,
+                        validator: Validatorless.multiple([
+                          Validatorless.required('Cnpj obrigatório'),
+                          Validatorless.min(14, 'Cnpj deve conter 14 números'),
+                        ]),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(10),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Text(
-                    'endereço',
-                    style: GoogleFonts.macondo(
-                        color: Colors.black87, fontSize: 15),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(10),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    Text(
+                      'endereço',
+                      style: GoogleFonts.macondo(
+                          color: Colors.black87, fontSize: 15),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: TextFormField(
+                        controller: enderecoController,
+                        keyboardType: TextInputType.streetAddress,
+                        validator:
+                            Validatorless.required('Endereço obrigatório'),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(10),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Text(
-                    'senha',
-                    style: GoogleFonts.macondo(
-                        color: Colors.black87, fontSize: 15),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(10),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    Text(
+                      'senha',
+                      style: GoogleFonts.macondo(
+                          color: Colors.black87, fontSize: 15),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: TextFormField(
+                        controller: passwordController,
+                        keyboardType: TextInputType.visiblePassword,
+                        validator: Validatorless.multiple([
+                          Validatorless.required('Senha Obrigatória'),
+                          Validatorless.min(
+                              6, 'Senha deve ter no mínimo 6 digitos'),
+                        ]),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(10),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Text(
-                    'confirmar senha',
-                    style: GoogleFonts.macondo(
-                        color: Colors.black87, fontSize: 15),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(10),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
+                    Text(
+                      'confirmar senha',
+                      style: GoogleFonts.macondo(
+                          color: Colors.black87, fontSize: 15),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: TextFormField(
+                        controller: confirmPassController,
+                        keyboardType: TextInputType.visiblePassword,
+                        validator: Validatorless.multiple([
+                          Validatorless.required('Confirmar senha obrigatório'),
+                          Validatorless.min(6,
+                              'Confirmar senha deve ter no mínimo 6 caracteres'),
+                          Validatorless.compare(
+                              passwordController, 'Senhas devem ser iguais'),
+                        ]),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(10),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Center(
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        foregroundColor: getColor(Colors.black, Colors.purple),
-                        backgroundColor: getColor(Colors.amber, Colors.green),
+                    Center(
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          foregroundColor:
+                              getColor(Colors.black, Colors.purple),
+                          backgroundColor: getColor(Colors.amber, Colors.green),
+                        ),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            EmpresaService service = EmpresaService();
+                            Empresa empresa = Empresa(
+                                nameController.text,
+                                emailController.text,
+                                cnpjController.text,
+                                enderecoController.text,
+                                passwordController.text,
+                                confirmPassController.text);
+                            service.add(empresa);
+                          }
+                        },
+                        child: const Text('          Salvar          '),
                       ),
-                      onPressed: () {},
-                      child: const Text('          Salvar          '),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
