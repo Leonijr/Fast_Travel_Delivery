@@ -3,7 +3,7 @@ class Empresa {
   late final String name;
   late final String email;
   late final String cnpj;
-  late final String veiculo;
+  late final String endereco;
   late final String password;
   late final String confirmPassword;
 
@@ -13,7 +13,7 @@ disparar algum processo necessário quanto a instanciação da classe */
     this.name,
     this.email,
     this.cnpj,
-    this.veiculo,
+    this.endereco,
     this.password,
     this.confirmPassword,
   );
@@ -23,7 +23,7 @@ disparar algum processo necessário quanto a instanciação da classe */
       : name = map['name'],
         email = map['email'],
         cnpj = map['cnpj'],
-        veiculo = map['veiculo'],
+        endereco = map['endereco'],
         password = map['password'],
         confirmPassword = map['confirmPassword'];
 
@@ -34,7 +34,7 @@ disparar algum processo necessário quanto a instanciação da classe */
       'name': name,
       'email': email,
       'cnpj': cnpj,
-      'veiculo': veiculo,
+      'endereco': endereco,
       'password': password,
       'ConfirmPassword': confirmPassword,
     };

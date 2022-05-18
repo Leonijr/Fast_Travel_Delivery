@@ -1,5 +1,6 @@
 import 'package:fasttravel/login/login_screen.dart';
 import 'package:fasttravel/screens/client_Screen.dart';
+import 'package:fasttravel/screens/cliente/client_main.dart';
 import 'package:fasttravel/screens/register_Screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -21,9 +22,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      initialRoute: '/',
+      initialRoute: '/log',
       routes: {
-        '/': ((context) => const loginScreen()),
+        '/log': ((context) => const loginScreen()),
         '/addClient': ((context) => const addClient()),
       },
     );

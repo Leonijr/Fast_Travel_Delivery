@@ -1,5 +1,8 @@
+import 'package:fasttravel/login/login_screen.dart';
 import 'package:fasttravel/models/client.dart';
 import 'package:fasttravel/models/client_service.dart';
+import 'package:fasttravel/models/user_local.dart';
+import 'package:fasttravel/models/user_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:validatorless/validatorless.dart';
@@ -217,6 +220,28 @@ class _AddClienteState extends State<AddCliente> {
                               passwordController.text,
                               confirmPassController.text);
                           service.add(client);
+
+                          UserServices Users = UserServices();
+                          Users.signUp(
+                              UserLocal(
+                                  id: 'id',
+                                  email: emailController.text,
+                                  password: passwordController.text),
+                              onSucess: () {
+                            _showDialog(context);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const loginScreen(),
+                                ));
+                          }, onFail: (e) {
+                            const ScaffoldMessenger(
+                              child: SnackBar(
+                                content: Text('Falha ao registrar usuário'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          });
                         }
                       },
                       child: const Text('          Salvar          '),
@@ -233,6 +258,19 @@ class _AddClienteState extends State<AddCliente> {
       ),
     );
   }
+}
+
+void _showDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return const AlertDialog(
+        title: Text("Aviso!"),
+        content: Text("Perfil da cliente criado com sucesso!"),
+        backgroundColor: Colors.lightGreen,
+      );
+    },
+  );
 }
 
 MaterialStateProperty<Color> getColor(Color color, Color colorPressed) {

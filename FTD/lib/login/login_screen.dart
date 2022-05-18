@@ -1,3 +1,7 @@
+import 'package:fasttravel/models/user_local.dart';
+import 'package:fasttravel/models/user_services.dart';
+import 'package:fasttravel/screens/client_Screen.dart';
+import 'package:fasttravel/screens/cliente/client_main.dart';
 import 'package:fasttravel/screens/register_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -38,7 +42,7 @@ class loginScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 100),
-              const CardElevado(),
+              CardElevado(),
             ],
           ),
         ),
@@ -48,7 +52,9 @@ class loginScreen extends StatelessWidget {
 }
 
 class CardElevado extends StatelessWidget {
-  const CardElevado({Key? key}) : super(key: key);
+  CardElevado({Key? key}) : super(key: key);
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  UserLocal userLocal = UserLocal(id: '', email: '', password: '');
 
   @override
   Widget build(BuildContext context) {
@@ -58,86 +64,108 @@ class CardElevado extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: SizedBox(
             width: 280,
-            height: 220,
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Email: ',
-                    hintStyle: const TextStyle(fontSize: 10),
-                    prefixIcon: const Icon(Icons.email),
-                    isDense: true,
-                    contentPadding: const EdgeInsets.all(15),
-                    border: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(width: 20, color: Colors.amber),
-                        borderRadius: BorderRadius.circular(8)),
+            height: 290,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    onSaved: (value) => userLocal.email = value!,
+                    initialValue: userLocal.email,
+                    decoration: InputDecoration(
+                      hintText: 'Email: ',
+                      hintStyle: const TextStyle(fontSize: 10),
+                      prefixIcon: const Icon(Icons.email),
+                      isDense: true,
+                      contentPadding: const EdgeInsets.all(15),
+                      border: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(width: 20, color: Colors.amber),
+                          borderRadius: BorderRadius.circular(8)),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, insira um e-mail';
+                      }
+                      return null;
+                    },
+                    style: const TextStyle(fontSize: 12),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, insira um e-mail';
-                    }
-                    return null;
-                  },
-                  style: const TextStyle(fontSize: 12),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Senha: ',
-                    hintStyle: const TextStyle(fontSize: 10),
-                    prefixIcon: const Icon(Icons.key),
-                    isDense: true,
-                    contentPadding: const EdgeInsets.all(15),
-                    border: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(width: 20, color: Colors.amber),
-                        borderRadius: BorderRadius.circular(8)),
+                  const SizedBox(
+                    height: 15,
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Por favor, insira uma senha';
-                    }
-                    return null;
-                  },
-                  style: const TextStyle(fontSize: 12),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Entrar',
-                        style: GoogleFonts.macondo(color: Colors.green[400]),
+                  TextFormField(
+                    onSaved: (value) => userLocal.password = value!,
+                    initialValue: userLocal.password,
+                    decoration: InputDecoration(
+                      hintText: 'Senha: ',
+                      hintStyle: const TextStyle(fontSize: 10),
+                      prefixIcon: const Icon(Icons.key),
+                      isDense: true,
+                      contentPadding: const EdgeInsets.all(15),
+                      border: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(width: 20, color: Colors.amber),
+                          borderRadius: BorderRadius.circular(8)),
+                    ),
+                    obscureText: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, insira uma senha';
+                      }
+                      return null;
+                    },
+                    style: const TextStyle(fontSize: 12),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            _formKey.currentState!.save();
+                            UserServices _userServices = UserServices();
+                            _userServices.signIn(userLocal, onSucess: () {
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ClienteMainScreen()));
+                            }, onFail: (e) {
+                              Text('$e');
+                            });
+                          }
+                        },
+                        child: Text(
+                          'Entrar',
+                          style: GoogleFonts.macondo(color: Colors.green[400]),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12.0),
-                      child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const registerScreen(),
-                                ));
-                          },
-                          child: Text(
-                            'Ainda não possui login? Cadastre-se aqui',
-                            style:
-                                GoogleFonts.macondo(color: Colors.green[400]),
-                          )),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12.0),
+                        child: TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const registerScreen(),
+                                  ));
+                            },
+                            child: Text(
+                              'Ainda não possui login? Cadastre-se aqui',
+                              style:
+                                  GoogleFonts.macondo(color: Colors.green[400]),
+                            )),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
