@@ -5,6 +5,7 @@ class Client {
   late final String? endereco;
   late final String? password;
   late final String? confirmPass;
+  final String type = 'Cliente';
 
 /* método construtor utilizado para inicializar o estado do objeto e também
 disparar algum processo necessário quanto a instanciação da classe */
@@ -32,7 +33,8 @@ disparar algum processo necessário quanto a instanciação da classe */
       'email': email,
       'endereco': endereco,
       'password': password,
-      'confirmPass': confirmPass
+      'confirmPass': confirmPass,
+      'type': type
     };
   }
 }

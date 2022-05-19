@@ -214,11 +214,12 @@ class _AddClienteState extends State<AddCliente> {
                         if (_formKey.currentState!.validate()) {
                           ClienteService service = ClienteService();
                           Client client = Client(
-                              nameController.text,
-                              emailController.text,
-                              enderecoController.text,
-                              passwordController.text,
-                              confirmPassController.text);
+                            nameController.text,
+                            emailController.text,
+                            enderecoController.text,
+                            passwordController.text,
+                            confirmPassController.text,
+                          );
                           service.add(client);
 
                           UserServices Users = UserServices();

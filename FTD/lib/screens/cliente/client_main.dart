@@ -100,7 +100,7 @@ class _homeClientState extends State<homeClient> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.blue[300],
+        backgroundColor: Colors.black26,
         appBar: AppBar(
           backgroundColor: Colors.amber[600],
           title: Center(
@@ -112,22 +112,19 @@ class _homeClientState extends State<homeClient> {
             ),
           ),
         ),
-        body: Material(
-          color: Colors.black45,
-          child: Center(
-            child: Column(
-              children: [
-                const clientHome(),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 220, left: 270),
-                      child: FloatingActionButton(
-                          child: const Icon(Icons.add), onPressed: () {}),
-                    ),
-                  ],
-                )
-              ],
+        body: Center(
+          child: SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  const clientHome(),
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: FloatingActionButton(
+                        child: const Icon(Icons.add), onPressed: () {}),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

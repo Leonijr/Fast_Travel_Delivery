@@ -6,6 +6,7 @@ class Entregador {
   late final String veiculo;
   late final String password;
   late final String confirmPassword;
+  final String type = 'entregador';
 
 /* método construtor utilizado para inicializar o estado do objeto e também
 disparar algum processo necessário quanto a instanciação da classe */
@@ -37,6 +38,7 @@ disparar algum processo necessário quanto a instanciação da classe */
       'veiculo': veiculo,
       'password': password,
       'confirmPassword': confirmPassword,
+      'Type': type,
     };
   }
 }
