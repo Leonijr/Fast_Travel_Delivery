@@ -5,7 +5,7 @@ class Client {
   late final String? endereco;
   late final String? password;
   late final String? confirmPass;
-  final String type = 'Cliente';
+  late String tipo = 'Cliente';
 
 /* método construtor utilizado para inicializar o estado do objeto e também
 disparar algum processo necessário quanto a instanciação da classe */
@@ -15,6 +15,7 @@ disparar algum processo necessário quanto a instanciação da classe */
     this.endereco,
     this.password,
     this.confirmPass,
+    tipo,
   );
 
   /* Método para converter objetos em formato MAP em obj academic */
@@ -23,10 +24,10 @@ disparar algum processo necessário quanto a instanciação da classe */
         email = map['email'],
         endereco = map['endereco'],
         password = map['password'],
+        tipo = map['tipo'],
         confirmPass = map['confirmPass'];
 
   // método para conversão para MAP
-
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -34,7 +35,7 @@ disparar algum processo necessário quanto a instanciação da classe */
       'endereco': endereco,
       'password': password,
       'confirmPass': confirmPass,
-      'type': type
+      'tipo': tipo,
     };
   }
 }

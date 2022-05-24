@@ -6,7 +6,6 @@ class Empresa {
   late final String endereco;
   late final String password;
   late final String confirmPassword;
-  final String type = 'empresa';
 
 /* método construtor utilizado para inicializar o estado do objeto e também
 disparar algum processo necessário quanto a instanciação da classe */
@@ -38,7 +37,6 @@ disparar algum processo necessário quanto a instanciação da classe */
       'endereco': endereco,
       'password': password,
       'ConfirmPassword': confirmPassword,
-      'Type': type,
     };
   }
 }

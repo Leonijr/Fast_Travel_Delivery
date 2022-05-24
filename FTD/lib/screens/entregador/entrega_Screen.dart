@@ -1,21 +1,20 @@
 import 'package:fasttravel/login/login_screen.dart';
-import 'package:fasttravel/models/empresa.dart';
-import 'package:fasttravel/models/empresa_service.dart';
+import 'package:fasttravel/models/entregador.dart';
+import 'package:fasttravel/models/entregador_service.dart';
 import 'package:fasttravel/models/user_local.dart';
 import 'package:fasttravel/models/user_services.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:validatorless/validatorless.dart';
 
-class addEmpresa extends StatefulWidget {
-  const addEmpresa({Key? key}) : super(key: key);
+class addEntrega extends StatefulWidget {
+  const addEntrega({Key? key}) : super(key: key);
 
   @override
-  State<addEmpresa> createState() => _addEmpresaState();
+  State<addEntrega> createState() => _addEntregaState();
 }
 
-class _addEmpresaState extends State<addEmpresa> {
+class _addEntregaState extends State<addEntrega> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,31 +30,30 @@ class _addEmpresaState extends State<addEmpresa> {
           ),
         ),
         body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              const Image(
-                image: AssetImage('assets/logo_inicio.png'),
-                width: 100,
-                height: 100,
-                color: Colors.amber,
-              ),
-              Text(
-                'Fast Travel Delivery',
-                style: GoogleFonts.macondo(
-                  color: Colors.green[200],
-                  fontSize: 25,
+          child: Center(
+            child: Column(
+              children: <Widget>[
+                const Image(
+                  image: AssetImage('assets/logo_inicio.png'),
+                  width: 100,
+                  height: 100,
+                  color: Colors.amber,
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Text('Cadastro da Empresa',
+                Text(
+                  'Fast Travel Delivery',
                   style: GoogleFonts.macondo(
                     color: Colors.green[200],
-                    fontSize: 20,
-                  )),
-              const AddEmpr(),
-            ],
+                    fontSize: 25,
+                  ),
+                ),
+                Text('Cadastro de Entregador',
+                    style: GoogleFonts.macondo(
+                      color: Colors.green[200],
+                      fontSize: 20,
+                    )),
+                const AddEntregador(),
+              ],
+            ),
           ),
         ),
       ),
@@ -63,20 +61,20 @@ class _addEmpresaState extends State<addEmpresa> {
   }
 }
 
-class AddEmpr extends StatefulWidget {
-  const AddEmpr({Key? key}) : super(key: key);
+class AddEntregador extends StatefulWidget {
+  const AddEntregador({Key? key}) : super(key: key);
 
   @override
-  State<AddEmpr> createState() => _AddEmprState();
+  State<AddEntregador> createState() => _AddEntregadorState();
 }
 
-class _AddEmprState extends State<AddEmpr> {
+class _AddEntregadorState extends State<AddEntregador> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  TextEditingController cnpjController = TextEditingController();
-  TextEditingController enderecoController = TextEditingController();
+  TextEditingController cpfController = TextEditingController();
+  TextEditingController veiculoController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPassController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -138,18 +136,18 @@ class _AddEmprState extends State<AddEmpr> {
                       ),
                     ),
                     Text(
-                      'cnpj(apenas números)',
+                      'CPF(apenas números)',
                       style: GoogleFonts.macondo(
                           color: Colors.black87, fontSize: 15),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: TextFormField(
-                        controller: cnpjController,
+                        controller: cpfController,
                         keyboardType: TextInputType.number,
                         validator: Validatorless.multiple([
-                          Validatorless.required('Cnpj obrigatório'),
-                          Validatorless.min(14, 'Cnpj deve conter 14 números'),
+                          Validatorless.required('CPF obrigatório'),
+                          Validatorless.min(11, 'Cpf deve conter 11 números'),
                         ]),
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(10),
@@ -160,17 +158,17 @@ class _AddEmprState extends State<AddEmpr> {
                       ),
                     ),
                     Text(
-                      'endereço',
+                      'Veículo',
                       style: GoogleFonts.macondo(
                           color: Colors.black87, fontSize: 15),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: TextFormField(
-                        controller: enderecoController,
-                        keyboardType: TextInputType.streetAddress,
-                        validator:
-                            Validatorless.required('Endereço obrigatório'),
+                        controller: veiculoController,
+                        keyboardType: TextInputType.text,
+                        validator: Validatorless.required(
+                            'Informar nome e ano do veículo'),
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(10),
                           border: OutlineInputBorder(
@@ -210,7 +208,7 @@ class _AddEmprState extends State<AddEmpr> {
                     Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: TextFormField(
-                        controller: confirmPassController,
+                        controller: confirmPasswordController,
                         keyboardType: TextInputType.visiblePassword,
                         validator: Validatorless.multiple([
                           Validatorless.required('Confirmar senha obrigatório'),
@@ -236,23 +234,23 @@ class _AddEmprState extends State<AddEmpr> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            EmpresaService service = EmpresaService();
-                            Empresa empresa = Empresa(
+                            EntregadorService service = EntregadorService();
+                            Entregador entregador = Entregador(
                                 nameController.text,
                                 emailController.text,
-                                cnpjController.text,
-                                enderecoController.text,
+                                cpfController.text,
+                                veiculoController.text,
                                 passwordController.text,
-                                confirmPassController.text);
-                            service.add(empresa);
+                                confirmPasswordController.text);
+                            service.add(entregador);
 
                             UserServices Users = UserServices();
                             Users.signUp(
                                 UserLocal(
-                                    id: 'id',
-                                    email: emailController.text,
-                                    password: passwordController.text),
-                                onSucess: () {
+                                  id: 'id',
+                                  email: emailController.text,
+                                  password: passwordController.text,
+                                ), onSucess: () {
                               _showDialog(context);
                               Navigator.push(
                                   context,
@@ -292,7 +290,7 @@ void _showDialog(BuildContext context) {
     builder: (BuildContext context) {
       return const AlertDialog(
         title: Text("Aviso!"),
-        content: Text("Perfil da empresa criado com sucesso!"),
+        content: Text("Perfil entregador criado com sucesso!"),
         backgroundColor: Colors.lightGreen,
       );
     },

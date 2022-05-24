@@ -1,19 +1,18 @@
-import 'package:fasttravel/screens/cliente/client_Screen.dart';
-import 'package:fasttravel/screens/cliente/models/client_Settings_Screen.dart';
-import 'package:fasttravel/screens/cliente/models/client_concluid_Screen.dart';
-import 'package:fasttravel/screens/cliente/models/client_entrega_Screen.dart';
-import 'package:fasttravel/screens/cliente/models/client_home_Screen.dart';
+import 'package:fasttravel/screens/entregador/models/entrega_Settings_Screen.dart';
+import 'package:fasttravel/screens/entregador/models/entrega_Concluid_Screen.dart';
+import 'package:fasttravel/screens/entregador/models/entrega_Entregas_Screen.dart';
+import 'package:fasttravel/screens/entregador/models/entrega_Home_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ClienteMainScreen extends StatefulWidget {
-  const ClienteMainScreen({Key? key}) : super(key: key);
+class EntregaMainScreen extends StatefulWidget {
+  const EntregaMainScreen({Key? key}) : super(key: key);
 
   @override
-  State<ClienteMainScreen> createState() => _ClienteMainScreenState();
+  State<EntregaMainScreen> createState() => _EntregaMainScreenState();
 }
 
-class _ClienteMainScreenState extends State<ClienteMainScreen> {
+class _EntregaMainScreenState extends State<EntregaMainScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -40,10 +39,10 @@ class _NavBarState extends State<NavBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    homeClient(),
-    concluidosClient(),
-    entregasClient(),
-    configsClient(),
+    homeEntrega(),
+    concluidosEntrega(),
+    entregasEntregador(),
+    configsEntrega(),
   ];
 
   void _onItemTapped(int index) {
@@ -88,14 +87,14 @@ class _NavBarState extends State<NavBar> {
   }
 }
 
-class homeClient extends StatefulWidget {
-  const homeClient({Key? key}) : super(key: key);
+class homeEntrega extends StatefulWidget {
+  const homeEntrega({Key? key}) : super(key: key);
 
   @override
-  State<homeClient> createState() => _homeClientState();
+  State<homeEntrega> createState() => _homeEntregaState();
 }
 
-class _homeClientState extends State<homeClient> {
+class _homeEntregaState extends State<homeEntrega> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -105,7 +104,7 @@ class _homeClientState extends State<homeClient> {
           backgroundColor: Colors.amber[600],
           title: Center(
             child: Text(
-              'Fast Travel Delivery',
+              'Fast Travel Delivery - Entregador',
               style: GoogleFonts.macondo(
                 color: Colors.blue[800],
               ),
@@ -117,7 +116,7 @@ class _homeClientState extends State<homeClient> {
             child: Center(
               child: Column(
                 children: [
-                  const clientHome(),
+                  const entregaHome(),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: FloatingActionButton(
@@ -133,14 +132,14 @@ class _homeClientState extends State<homeClient> {
   }
 }
 
-class concluidosClient extends StatefulWidget {
-  const concluidosClient({Key? key}) : super(key: key);
+class concluidosEntrega extends StatefulWidget {
+  const concluidosEntrega({Key? key}) : super(key: key);
 
   @override
-  State<concluidosClient> createState() => _concluidosClientState();
+  State<concluidosEntrega> createState() => _concluidosEntregaState();
 }
 
-class _concluidosClientState extends State<concluidosClient> {
+class _concluidosEntregaState extends State<concluidosEntrega> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -150,27 +149,27 @@ class _concluidosClientState extends State<concluidosClient> {
           backgroundColor: Colors.green,
           title: Center(
             child: Text(
-              'Fast Travel Delivery',
+              'Fast Travel Delivery - Entregador',
               style: GoogleFonts.macondo(
                 color: Colors.blue[800],
               ),
             ),
           ),
         ),
-        body: const clientConcluid(),
+        body: const Center(child: EntregaConcluid()),
       ),
     );
   }
 }
 
-class entregasClient extends StatefulWidget {
-  const entregasClient({Key? key}) : super(key: key);
+class entregasEntregador extends StatefulWidget {
+  const entregasEntregador({Key? key}) : super(key: key);
 
   @override
-  State<entregasClient> createState() => _entregasClientState();
+  State<entregasEntregador> createState() => _entregasEntregadorState();
 }
 
-class _entregasClientState extends State<entregasClient> {
+class _entregasEntregadorState extends State<entregasEntregador> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -180,27 +179,27 @@ class _entregasClientState extends State<entregasClient> {
           backgroundColor: Colors.deepPurpleAccent,
           title: Center(
             child: Text(
-              'Fast Travel Delivery',
+              'Fast Travel Delivery - Entregador',
               style: GoogleFonts.macondo(
                 color: Colors.blue,
               ),
             ),
           ),
         ),
-        body: const clientEntregas(),
+        body: const entregadorEntregas(),
       ),
     );
   }
 }
 
-class configsClient extends StatefulWidget {
-  const configsClient({Key? key}) : super(key: key);
+class configsEntrega extends StatefulWidget {
+  const configsEntrega({Key? key}) : super(key: key);
 
   @override
-  State<configsClient> createState() => _configsClientState();
+  State<configsEntrega> createState() => _configsEntregaState();
 }
 
-class _configsClientState extends State<configsClient> {
+class _configsEntregaState extends State<configsEntrega> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -210,14 +209,14 @@ class _configsClientState extends State<configsClient> {
           backgroundColor: Colors.grey[600],
           title: Center(
             child: Text(
-              'Fast Travel Delivery',
+              'Fast Travel Delivery - Entregador',
               style: GoogleFonts.macondo(
                 color: Colors.blue[800],
               ),
             ),
           ),
         ),
-        body: const clientSettings(),
+        body: const entregadorSettings(),
       ),
     );
   }

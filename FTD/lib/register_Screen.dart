@@ -1,6 +1,6 @@
-import 'package:fasttravel/screens/client_Screen.dart';
-import 'package:fasttravel/screens/empresa_Screen.dart';
-import 'package:fasttravel/screens/entrega_Screen.dart';
+import 'package:fasttravel/screens/cliente/client_Screen.dart';
+import 'package:fasttravel/screens/empresa/empresa_Screen.dart';
+import 'package:fasttravel/screens/entregador/entrega_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

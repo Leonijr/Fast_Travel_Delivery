@@ -1,17 +1,19 @@
-import 'package:fasttravel/screens/cliente/models/client_entrega_Screen.dart';
+// ignore_for_file: deprecated_member_use
+
+import 'package:fasttravel/screens/empresa/models/empresa_Entregas_Screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class clientHome extends StatefulWidget {
-  const clientHome({Key? key}) : super(key: key);
+class empresaHome extends StatefulWidget {
+  const empresaHome({Key? key}) : super(key: key);
 
   @override
-  State<clientHome> createState() => _clientHomeState();
+  State<empresaHome> createState() => _empresaHomeState();
 }
 
-class _clientHomeState extends State<clientHome> {
+class _empresaHomeState extends State<empresaHome> {
   @override
   Widget build(BuildContext context) {
     return Center(

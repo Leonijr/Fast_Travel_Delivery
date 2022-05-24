@@ -1,11 +1,10 @@
 import 'package:fasttravel/models/user_local.dart';
 import 'package:fasttravel/models/user_services.dart';
-import 'package:fasttravel/screens/client_Screen.dart';
+import 'package:fasttravel/register_Screen.dart';
 import 'package:fasttravel/screens/cliente/client_main.dart';
-import 'package:fasttravel/screens/register_Screen.dart';
+import 'package:fasttravel/screens/empresa/empresa_main.dart';
+import 'package:fasttravel/screens/entregador/entrega_main.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class loginScreen extends StatelessWidget {
@@ -63,8 +62,8 @@ class CardElevado extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: SizedBox(
-            width: 280,
-            height: 290,
+            width: 320,
+            height: 380,
             child: Form(
               key: _formKey,
               child: Column(
@@ -117,19 +116,56 @@ class CardElevado extends StatelessWidget {
                     },
                     style: const TextStyle(fontSize: 12),
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      SingleChildScrollView(
+                        child: Botoes(),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.brown[800])),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
                             UserServices _userServices = UserServices();
                             _userServices.signIn(userLocal, onSucess: () {
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ClienteMainScreen()));
+                              if (_BotoesState != 'Cliente') {
+                                if (_BotoesState != 'Empresa') {
+                                  if (_BotoesState != 'Entregador') {
+                                    const SnackBar(
+                                      content: Text('Acesso inválido'),
+                                    );
+                                  } else {
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const EntregaMainScreen()));
+                                  }
+                                } else {
+                                  Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const EmpresaMainScreen()));
+                                }
+                              } else {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ClienteMainScreen()));
+                              }
                             }, onFail: (e) {
                               Text('$e');
                             });
@@ -142,11 +178,11 @@ class CardElevado extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   Row(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12.0),
+                        padding: const EdgeInsets.only(left: 30.0),
                         child: TextButton(
                             onPressed: () {
                               Navigator.push(
@@ -170,6 +206,51 @@ class CardElevado extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class Botoes extends StatefulWidget {
+  const Botoes({Key? key}) : super(key: key);
+
+  @override
+  State<Botoes> createState() => _BotoesState();
+}
+
+class _BotoesState extends State<Botoes> {
+  String valorDrop = 'Cliente';
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Column(
+          children: [
+            DropdownButton<String>(
+              borderRadius: BorderRadius.circular(8),
+              dropdownColor: Colors.brown[800],
+              value: valorDrop,
+              icon: const Icon(Icons.touch_app_outlined),
+              elevation: 50,
+              style: GoogleFonts.macondo(
+                color: Colors.green[700],
+              ),
+              onChanged: (String? newValue) {
+                setState(() {
+                  valorDrop = newValue.toString();
+                });
+              },
+              items: <String>['Cliente', 'Empresa', 'Entregador']
+                  .map<DropdownMenuItem<String>>((String valor) {
+                return DropdownMenuItem<String>(
+                  value: valor,
+                  child: Text(valor),
+                );
+              }).toList(),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

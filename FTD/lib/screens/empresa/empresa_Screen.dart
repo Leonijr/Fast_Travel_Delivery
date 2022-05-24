@@ -1,20 +1,21 @@
 import 'package:fasttravel/login/login_screen.dart';
-import 'package:fasttravel/models/client.dart';
-import 'package:fasttravel/models/client_service.dart';
+import 'package:fasttravel/models/empresa.dart';
+import 'package:fasttravel/models/empresa_service.dart';
 import 'package:fasttravel/models/user_local.dart';
 import 'package:fasttravel/models/user_services.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:validatorless/validatorless.dart';
 
-class addClient extends StatefulWidget {
-  const addClient({Key? key}) : super(key: key);
+class addEmpresa extends StatefulWidget {
+  const addEmpresa({Key? key}) : super(key: key);
 
   @override
-  State<addClient> createState() => _addClientState();
+  State<addEmpresa> createState() => _addEmpresaState();
 }
 
-class _addClientState extends State<addClient> {
+class _addEmpresaState extends State<addEmpresa> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,33 +31,31 @@ class _addClientState extends State<addClient> {
           ),
         ),
         body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: <Widget>[
-                const Image(
-                  image: AssetImage('assets/logo_inicio.png'),
-                  width: 100,
-                  height: 100,
-                  color: Colors.amber,
+          child: Column(
+            children: <Widget>[
+              const Image(
+                image: AssetImage('assets/logo_inicio.png'),
+                width: 100,
+                height: 100,
+                color: Colors.amber,
+              ),
+              Text(
+                'Fast Travel Delivery',
+                style: GoogleFonts.macondo(
+                  color: Colors.green[200],
+                  fontSize: 25,
                 ),
-                Text(
-                  'Fast Travel Delivery',
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text('Cadastro da Empresa',
                   style: GoogleFonts.macondo(
                     color: Colors.green[200],
-                    fontSize: 25,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text('Cadastro de Cliente',
-                    style: GoogleFonts.macondo(
-                      color: Colors.green[200],
-                      fontSize: 20,
-                    )),
-                const AddCliente(),
-              ],
-            ),
+                    fontSize: 20,
+                  )),
+              const AddEmpr(),
+            ],
           ),
         ),
       ),
@@ -64,16 +63,17 @@ class _addClientState extends State<addClient> {
   }
 }
 
-class AddCliente extends StatefulWidget {
-  const AddCliente({Key? key}) : super(key: key);
+class AddEmpr extends StatefulWidget {
+  const AddEmpr({Key? key}) : super(key: key);
 
   @override
-  State<AddCliente> createState() => _AddClienteState();
+  State<AddEmpr> createState() => _AddEmprState();
 }
 
-class _AddClienteState extends State<AddCliente> {
+class _AddEmprState extends State<AddEmpr> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController cnpjController = TextEditingController();
   TextEditingController enderecoController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPassController = TextEditingController();
@@ -127,7 +127,29 @@ class _AddClienteState extends State<AddCliente> {
                         keyboardType: TextInputType.emailAddress,
                         validator: Validatorless.multiple([
                           Validatorless.required('Email obrigatório'),
-                          Validatorless.email('Email inválido'),
+                          Validatorless.email('email inválido'),
+                        ]),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.all(10),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Text(
+                      'cnpj(apenas números)',
+                      style: GoogleFonts.macondo(
+                          color: Colors.black87, fontSize: 15),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: TextFormField(
+                        controller: cnpjController,
+                        keyboardType: TextInputType.number,
+                        validator: Validatorless.multiple([
+                          Validatorless.required('Cnpj obrigatório'),
+                          Validatorless.min(14, 'Cnpj deve conter 14 números'),
                         ]),
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(10),
@@ -168,9 +190,9 @@ class _AddClienteState extends State<AddCliente> {
                         controller: passwordController,
                         keyboardType: TextInputType.visiblePassword,
                         validator: Validatorless.multiple([
-                          Validatorless.required('Senha obrigatória'),
+                          Validatorless.required('Senha Obrigatória'),
                           Validatorless.min(
-                              6, 'Senha deve ter no mínimo 6 dígitos'),
+                              6, 'Senha deve ter no mínimo 6 digitos'),
                         ]),
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(10),
@@ -191,11 +213,11 @@ class _AddClienteState extends State<AddCliente> {
                         controller: confirmPassController,
                         keyboardType: TextInputType.visiblePassword,
                         validator: Validatorless.multiple([
-                          Validatorless.required('Confirmar senha obrigatória'),
+                          Validatorless.required('Confirmar senha obrigatório'),
                           Validatorless.min(6,
-                              'Confirmar senha deve ter no mínimo 6 digitos'),
+                              'Confirmar senha deve ter no mínimo 6 caracteres'),
                           Validatorless.compare(
-                              passwordController, 'Senhas devem ser iguais')
+                              passwordController, 'Senhas devem ser iguais'),
                         ]),
                         decoration: InputDecoration(
                           contentPadding: const EdgeInsets.all(10),
@@ -205,47 +227,50 @@ class _AddClienteState extends State<AddCliente> {
                         ),
                       ),
                     ),
-                    ElevatedButton(
-                      style: ButtonStyle(
-                        foregroundColor: getColor(Colors.black, Colors.purple),
-                        backgroundColor: getColor(Colors.amber, Colors.green),
-                      ),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          ClienteService service = ClienteService();
-                          Client client = Client(
-                            nameController.text,
-                            emailController.text,
-                            enderecoController.text,
-                            passwordController.text,
-                            confirmPassController.text,
-                          );
-                          service.add(client);
+                    Center(
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          foregroundColor:
+                              getColor(Colors.black, Colors.purple),
+                          backgroundColor: getColor(Colors.amber, Colors.green),
+                        ),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            EmpresaService service = EmpresaService();
+                            Empresa empresa = Empresa(
+                                nameController.text,
+                                emailController.text,
+                                cnpjController.text,
+                                enderecoController.text,
+                                passwordController.text,
+                                confirmPassController.text);
+                            service.add(empresa);
 
-                          UserServices Users = UserServices();
-                          Users.signUp(
-                              UserLocal(
+                            UserServices Users = UserServices();
+                            Users.signUp(
+                                UserLocal(
                                   id: 'id',
                                   email: emailController.text,
-                                  password: passwordController.text),
-                              onSucess: () {
-                            _showDialog(context);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const loginScreen(),
-                                ));
-                          }, onFail: (e) {
-                            const ScaffoldMessenger(
-                              child: SnackBar(
-                                content: Text('Falha ao registrar usuário'),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          });
-                        }
-                      },
-                      child: const Text('          Salvar          '),
+                                  password: passwordController.text,
+                                ), onSucess: () {
+                              _showDialog(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const loginScreen(),
+                                  ));
+                            }, onFail: (e) {
+                              const ScaffoldMessenger(
+                                child: SnackBar(
+                                  content: Text('Falha ao registrar usuário'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            });
+                          }
+                        },
+                        child: const Text('          Salvar          '),
+                      ),
                     ),
                     const SizedBox(
                       height: 20,
@@ -267,7 +292,7 @@ void _showDialog(BuildContext context) {
     builder: (BuildContext context) {
       return const AlertDialog(
         title: Text("Aviso!"),
-        content: Text("Perfil da cliente criado com sucesso!"),
+        content: Text("Perfil da empresa criado com sucesso!"),
         backgroundColor: Colors.lightGreen,
       );
     },

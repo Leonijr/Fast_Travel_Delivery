@@ -1,17 +1,17 @@
-import 'package:fasttravel/screens/cliente/models/client_entrega_Screen.dart';
+import 'package:fasttravel/screens/entregador/models/entrega_Entregas_Screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class clientHome extends StatefulWidget {
-  const clientHome({Key? key}) : super(key: key);
+class entregaHome extends StatefulWidget {
+  const entregaHome({Key? key}) : super(key: key);
 
   @override
-  State<clientHome> createState() => _clientHomeState();
+  State<entregaHome> createState() => _entregaHomeState();
 }
 
-class _clientHomeState extends State<clientHome> {
+class _entregaHomeState extends State<entregaHome> {
   @override
   Widget build(BuildContext context) {
     return Center(

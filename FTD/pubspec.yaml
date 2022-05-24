@@ -16,6 +16,7 @@ dependencies:
   firebase_core: ^1.17.0
   flutter:
     sdk: flutter
+  group_radio_button: ^1.2.0
   validatorless: ^1.2.1
 
 dev_dependencies:
