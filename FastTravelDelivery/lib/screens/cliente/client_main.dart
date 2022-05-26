@@ -112,22 +112,7 @@ class _homeClientState extends State<homeClient> {
             ),
           ),
         ),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: [
-                  const clientHome(),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: FloatingActionButton(
-                        child: const Icon(Icons.add), onPressed: () {}),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+        body: const clientHome(),
       ),
     );
   }

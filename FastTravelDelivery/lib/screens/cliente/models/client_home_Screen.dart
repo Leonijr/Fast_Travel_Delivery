@@ -1,8 +1,10 @@
+import 'package:fasttravel/screens/cliente/client_main.dart';
 import 'package:fasttravel/screens/cliente/models/client_entrega_Screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class clientHome extends StatefulWidget {
   const clientHome({Key? key}) : super(key: key);
@@ -12,6 +14,10 @@ class clientHome extends StatefulWidget {
 }
 
 class _clientHomeState extends State<clientHome> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController pedidoController = TextEditingController();
+  TextEditingController enderecoController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -30,12 +36,14 @@ class _clientHomeState extends State<clientHome> {
                     IconButton(
                       onPressed: () {},
                       icon: const Icon(Icons.delete),
+                      color: Colors.red[400],
                     ),
                   ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
+                    controller: nameController,
                     decoration: const InputDecoration(
                       labelText: 'Nome',
                       hintText: 'Insira seu nome',
@@ -45,6 +53,7 @@ class _clientHomeState extends State<clientHome> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
+                    controller: pedidoController,
                     decoration: const InputDecoration(
                       labelText: 'O que deseja?',
                       hintText: 'Insira seu pedido',
@@ -54,6 +63,7 @@ class _clientHomeState extends State<clientHome> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextFormField(
+                    controller: enderecoController,
                     decoration: const InputDecoration(
                       labelText: 'Endereço',
                       hintText: 'Local de entrega',
@@ -62,20 +72,37 @@ class _clientHomeState extends State<clientHome> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 190.0),
+                  padding: const EdgeInsets.only(left: 200.0),
                   child: Row(
                     children: [
-                      const Text('Enviar pedido'),
-                      IconButton(
-                        onPressed: () {
-                          _showDialog(context);
-                        },
-                        icon: const Icon(Icons.send),
-                        iconSize: 40,
-                        color: Colors.green,
-                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.green),
+                          ),
+                          onPressed: () {
+                            final snackBar = SnackBar(
+                              content: const Text(
+                                  'Pedido enviado com sucesso ao restaurante'),
+                              action: SnackBarAction(
+                                  label: 'Desfazer', onPressed: () {}),
+                            );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                            nameController.clear();
+                            pedidoController.clear();
+                            enderecoController.clear();
+                          },
+                          child: const Text('Enviar pedido'),
+                        ),
+                      )
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
               ],
             ),
@@ -84,32 +111,4 @@ class _clientHomeState extends State<clientHome> {
       ),
     );
   }
-}
-
-void _showDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: Colors.greenAccent[100],
-        title: const Text("Aviso!"),
-        content: const Text(
-            "Deseja realmente enviar seu pedido para o restaurante?"),
-        actions: <Widget>[
-          FlatButton(
-            onPressed: (() {
-              Navigator.of(context).pop();
-            }),
-            child: const Text("cancelar"),
-          ),
-          FlatButton(
-            child: const Text("OK"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
 }
