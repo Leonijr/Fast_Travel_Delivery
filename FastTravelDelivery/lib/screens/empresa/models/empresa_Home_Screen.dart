@@ -1,10 +1,11 @@
-// ignore_for_file: deprecated_member_use
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fasttravel/data/formPedidoStatus.dart';
 import 'package:fasttravel/screens/empresa/models/empresa_Entregas_Screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class empresaHome extends StatefulWidget {
   const empresaHome({Key? key}) : super(key: key);
@@ -16,102 +17,30 @@ class empresaHome extends StatefulWidget {
 class _empresaHomeState extends State<empresaHome> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Card(
-            color: Colors.teal[100],
-            child: Column(
-              children: <Widget>[
-                AppBar(
-                  backgroundColor: Colors.greenAccent[700],
-                  leading: const Icon(Icons.people),
-                  title: const Text('Pedido'),
-                  actions: <Widget>[
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.delete),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Nome',
-                      hintText: 'Insira seu nome',
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'O que deseja?',
-                      hintText: 'Insira seu pedido',
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Endereço',
-                      hintText: 'Local de entrega',
-                    ),
-                    keyboardType: TextInputType.streetAddress,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 190.0),
-                  child: Row(
-                    children: [
-                      const Text('Enviar pedido'),
-                      IconButton(
-                        onPressed: () {
-                          _showDialog(context);
-                        },
-                        icon: const Icon(Icons.send),
-                        iconSize: 40,
-                        color: Colors.green,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+    return Scaffold(
+      backgroundColor: Colors.black26,
+      appBar: AppBar(
+        backgroundColor: Colors.amber[600],
+        title: Center(
+          child: Text(
+            'Fast Travel Delivery - Empresa',
+            style: GoogleFonts.macondo(
+              color: Colors.blue[800],
             ),
           ),
         ),
       ),
-    );
-  }
-}
-
-void _showDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        backgroundColor: Colors.greenAccent[100],
-        title: const Text("Aviso!"),
-        content: const Text(
-            "Deseja realmente enviar seu pedido para o restaurante?"),
-        actions: <Widget>[
-          FlatButton(
-            onPressed: (() {
-              Navigator.of(context).pop();
-            }),
-            child: const Text("cancelar"),
-          ),
-          FlatButton(
-            child: const Text("OK"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: Container(),
           ),
         ],
-      );
-    },
-  );
+      ),
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.amber[600],
+          onPressed: () {},
+          child: const Icon(Icons.refresh_rounded)),
+    );
+  }
 }

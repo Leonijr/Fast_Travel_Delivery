@@ -16,6 +16,7 @@ class _EmpresaMainScreenState extends State<EmpresaMainScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           colorSchemeSeed: const Color.fromARGB(24, 25, 25, 112),
           useMaterial3: true),
@@ -39,7 +40,7 @@ class _NavBarState extends State<NavBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    homeEmpresa(),
+    empresaHome(),
     concluidosEmpresa(),
     entregasEmpresa(),
     configsEmpresa(),
@@ -82,51 +83,6 @@ class _NavBarState extends State<NavBar> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black45,
         onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-class homeEmpresa extends StatefulWidget {
-  const homeEmpresa({Key? key}) : super(key: key);
-
-  @override
-  State<homeEmpresa> createState() => _homeEmpresaState();
-}
-
-class _homeEmpresaState extends State<homeEmpresa> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.black26,
-        appBar: AppBar(
-          backgroundColor: Colors.amber[600],
-          title: Center(
-            child: Text(
-              'Fast Travel Delivery - Empresa',
-              style: GoogleFonts.macondo(
-                color: Colors.blue[800],
-              ),
-            ),
-          ),
-        ),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: [
-                  const empresaHome(),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: FloatingActionButton(
-                        child: const Icon(Icons.add), onPressed: () {}),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }

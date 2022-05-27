@@ -16,6 +16,7 @@ class _EntregaMainScreenState extends State<EntregaMainScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           colorSchemeSeed: const Color.fromARGB(24, 25, 25, 112),
           useMaterial3: true),
@@ -39,7 +40,7 @@ class _NavBarState extends State<NavBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    homeEntrega(),
+    entregaHome(),
     concluidosEntrega(),
     entregasEntregador(),
     configsEntrega(),
@@ -82,51 +83,6 @@ class _NavBarState extends State<NavBar> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black45,
         onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-class homeEntrega extends StatefulWidget {
-  const homeEntrega({Key? key}) : super(key: key);
-
-  @override
-  State<homeEntrega> createState() => _homeEntregaState();
-}
-
-class _homeEntregaState extends State<homeEntrega> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.black26,
-        appBar: AppBar(
-          backgroundColor: Colors.amber[600],
-          title: Center(
-            child: Text(
-              'Fast Travel Delivery - Entregador',
-              style: GoogleFonts.macondo(
-                color: Colors.blue[800],
-              ),
-            ),
-          ),
-        ),
-        body: Center(
-          child: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: [
-                  const entregaHome(),
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: FloatingActionButton(
-                        child: const Icon(Icons.add), onPressed: () {}),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
       ),
     );
   }
