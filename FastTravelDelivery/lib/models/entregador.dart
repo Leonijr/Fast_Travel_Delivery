@@ -31,6 +31,7 @@ disparar algum processo necessário quanto a instanciação da classe */
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'name': name,
       'email': email,
       'cpf': cpf,

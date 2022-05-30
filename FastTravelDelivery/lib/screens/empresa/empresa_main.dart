@@ -1,12 +1,15 @@
+import 'package:fasttravel/models/user_services.dart';
 import 'package:fasttravel/screens/empresa/models/empresa_Settings_Screen.dart';
 import 'package:fasttravel/screens/empresa/models/empresa_Concluid_Screen.dart';
 import 'package:fasttravel/screens/empresa/models/empresa_Entregas_Screen.dart';
 import 'package:fasttravel/screens/empresa/models/empresa_Home_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../models/user_local.dart';
 
 class EmpresaMainScreen extends StatefulWidget {
-  const EmpresaMainScreen({Key? key}) : super(key: key);
+  final UserLocal _userLocal;
+  const EmpresaMainScreen(this._userLocal, {Key? key}) : super(key: key);
 
   @override
   State<EmpresaMainScreen> createState() => _EmpresaMainScreenState();
@@ -62,7 +65,7 @@ class _NavBarState extends State<NavBar> {
           BottomNavigationBarItem(
             icon: const Icon(Icons.list_alt),
             label: 'Pedidos',
-            backgroundColor: Colors.yellowAccent[700],
+            backgroundColor: Colors.amber[600],
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.checklist_rtl),

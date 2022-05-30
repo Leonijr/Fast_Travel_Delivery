@@ -7,8 +7,11 @@ import 'package:fasttravel/models/user_local.dart';
 FirebaseAuth _auth = FirebaseAuth.instance;
 FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
-class UserServices {
+class UserServices extends ChangeNotifier {
   UserLocal? userLocal;
+  //método construtor
+
+  // Logar com email e senha
   Future<void> signIn(
     UserLocal userLocal, {
     Function? onSucess,
@@ -16,7 +19,7 @@ class UserServices {
   }) async {
     try {
       User? user = (await _auth.signInWithEmailAndPassword(
-              email: userLocal.email, password: userLocal.password))
+              email: userLocal.email!, password: userLocal.password!))
           .user;
       this.userLocal = userLocal;
       this.userLocal!.id = user!.uid;
@@ -34,13 +37,26 @@ class UserServices {
   }) async {
     try {
       User? user = (await _auth.createUserWithEmailAndPassword(
-              email: userLocal.email, password: userLocal.password))
+              email: userLocal.email!, password: userLocal.password!))
           .user;
       this.userLocal = userLocal;
       this.userLocal!.id = user!.uid;
       onSucess!();
     } catch (e) {
       onFail!(e);
+    }
+    notifyListeners();
+  }
+
+  Future<void> _loadingCurrentUser(User? user) async {
+    final User? currentUser = user ?? _auth.currentUser;
+    if (currentUser != null) {
+      final DocumentSnapshot docUser = await _firebaseFirestore
+          .collection('FastTravel')
+          .doc(currentUser.uid)
+          .get();
+      userLocal = UserLocal.fromDocument(docUser);
+      notifyListeners();
     }
   }
 }

@@ -6,6 +6,7 @@ import 'package:fasttravel/screens/empresa/empresa_main.dart';
 import 'package:fasttravel/screens/entregador/entrega_main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class loginScreen extends StatefulWidget {
   const loginScreen({Key? key}) : super(key: key);
@@ -24,35 +25,39 @@ class _loginScreenState extends State<loginScreen> {
       theme: ThemeData(
           colorSchemeSeed: const Color.fromARGB(24, 25, 25, 112),
           useMaterial3: true),
-      home: Scaffold(
-        backgroundColor: Colors.blue[900],
-        appBar: AppBar(
-          backgroundColor: Colors.amber[600],
-          title: const Center(
-            child: Text('Fast Travel Delivery'),
-          ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              const Image(
-                image: AssetImage('assets/logo_inicio.png'),
-                width: 100,
-                height: 100,
-                color: Colors.amber,
+      home: Consumer<UserServices>(
+        builder: (_, _userServices, child) {
+          return Scaffold(
+            backgroundColor: Colors.blue[900],
+            appBar: AppBar(
+              backgroundColor: Colors.amber[600],
+              title: const Center(
+                child: Text('Fast Travel Delivery'),
               ),
-              Text(
-                'Fast Travel Delivery',
-                style: GoogleFonts.macondo(
-                  color: Colors.green[200],
-                  fontSize: 25,
-                ),
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  const Image(
+                    image: AssetImage('assets/logo_inicio.png'),
+                    width: 100,
+                    height: 100,
+                    color: Colors.amber,
+                  ),
+                  Text(
+                    'Fast Travel Delivery',
+                    style: GoogleFonts.macondo(
+                      color: Colors.green[200],
+                      fontSize: 25,
+                    ),
+                  ),
+                  const SizedBox(height: 100),
+                  CardElevado(),
+                ],
               ),
-              const SizedBox(height: 100),
-              CardElevado(),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -66,8 +71,6 @@ class _loginScreenState extends State<loginScreen> {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: SizedBox(
-            width: 320,
-            height: 380,
             child: Form(
               key: _formKey,
               child: Column(
@@ -167,7 +170,7 @@ class _loginScreenState extends State<loginScreen> {
                                   Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const EmpresaMainScreen()));
+                                              EmpresaMainScreen(userLocal)));
                                 }
                               } else {
                                 Navigator.of(context).pushReplacement(

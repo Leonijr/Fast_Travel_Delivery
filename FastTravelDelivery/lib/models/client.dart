@@ -30,6 +30,7 @@ disparar algum processo necessário quanto a instanciação da classe */
   // método para conversão para MAP
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'name': name,
       'email': email,
       'endereco': endereco,

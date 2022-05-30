@@ -1,7 +1,9 @@
 import 'package:fasttravel/login/login_screen.dart';
+import 'package:fasttravel/models/user_services.dart';
 import 'package:fasttravel/screens/cliente/client_Screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -18,14 +20,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      initialRoute: '/log',
-      debugShowCheckedModeBanner: false,
-      routes: {
-        '/log': ((context) => const loginScreen()),
-        '/addClient': ((context) => const addClient()),
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => UserServices(),
+          lazy: false,
+        ),
+      ],
+      child: MaterialApp(
+        initialRoute: '/log',
+        debugShowCheckedModeBanner: false,
+        routes: {
+          '/log': ((context) => const loginScreen()),
+          '/addClient': ((context) => const addClient()),
+        },
+      ),
     );
   }
 }
