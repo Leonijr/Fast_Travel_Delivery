@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class PedidoService {
   // obter instancia do Firebase localmente
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  var colecao;
 
   //métdo para gravar dados no FireBase
   add(formPedidoStatus sttsPedido) {
@@ -21,10 +22,26 @@ class PedidoService {
     return WishRef.snapshots();
   }
 
-  Future<String> getWishById(String id) async {
-    var collection = _firestore.collection("Pedidos");
-    var docSnapshot = await collection.doc(id).get();
-    Map<String, dynamic>? data = docSnapshot.data();
-    return Future.value(data!['pedido']);
+  Stream<QuerySnapshot> statusEntrega() {
+    colecao = _firestore
+        .collection('Pedidos')
+        .where('status', isEqualTo: 'pronto p/ retirar')
+        .snapshots();
+    return colecao;
+  }
+
+  Stream<QuerySnapshot> statusEmpresa() {
+    colecao = _firestore
+        .collection('Pedidos')
+        .where('status', isEqualTo: 'preparando')
+        .snapshots();
+    return colecao;
+  }
+
+  Future<void> alteraStts() async {
+    CollectionReference ref = _firestore.collection('Pedidos');
+    String? docs;
+    statusEntrega().asyncMap((event) => docs = ref.id);
+    colecao = ref.doc(docs).update({'status': 'pronto p/ retirar'});
   }
 }

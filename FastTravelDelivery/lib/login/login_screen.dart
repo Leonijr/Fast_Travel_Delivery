@@ -164,7 +164,7 @@ class _loginScreenState extends State<loginScreen> {
                                     Navigator.of(context).pushReplacement(
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const EntregaMainScreen()));
+                                                EntregaMainScreen(userLocal)));
                                   }
                                 } else {
                                   Navigator.of(context).pushReplacement(

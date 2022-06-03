@@ -3,23 +3,24 @@ class formPedidoStatus {
   late final String? name;
   late final String? pedido;
   late final String? local;
+  late final String? status;
 
-  formPedidoStatus(
-    this.name,
-    this.pedido,
-    this.local,
-  );
+  formPedidoStatus(this.name, this.pedido, this.local, this.status);
 
   formPedidoStatus.fromMap(Map<String, dynamic> map)
-      : name = map['name'],
+      : id = map['id'],
+        name = map['name'],
         pedido = map['pedido'],
-        local = map['local'];
+        local = map['local'],
+        status = map['status'];
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'name': name,
       'pedido': pedido,
       'local': local,
+      'status': status,
     };
   }
 }

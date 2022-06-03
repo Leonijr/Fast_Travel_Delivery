@@ -1,3 +1,4 @@
+import 'package:fasttravel/models/user_local.dart';
 import 'package:fasttravel/screens/entregador/models/entrega_Settings_Screen.dart';
 import 'package:fasttravel/screens/entregador/models/entrega_Concluid_Screen.dart';
 import 'package:fasttravel/screens/entregador/models/entrega_Entregas_Screen.dart';
@@ -6,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EntregaMainScreen extends StatefulWidget {
-  const EntregaMainScreen({Key? key}) : super(key: key);
+  final UserLocal _userLocal;
+  const EntregaMainScreen(this._userLocal, {Key? key}) : super(key: key);
 
   @override
   State<EntregaMainScreen> createState() => _EntregaMainScreenState();

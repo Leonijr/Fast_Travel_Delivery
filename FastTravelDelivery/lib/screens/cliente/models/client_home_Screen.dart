@@ -19,6 +19,7 @@ class _clientHomeState extends State<clientHome> {
   TextEditingController nameController = TextEditingController();
   TextEditingController pedidoController = TextEditingController();
   TextEditingController enderecoController = TextEditingController();
+  String statusController = "preparando";
 
   final _formKey = GlobalKey<FormState>();
 
@@ -103,6 +104,7 @@ class _clientHomeState extends State<clientHome> {
                                   nameController.text,
                                   pedidoController.text,
                                   enderecoController.text,
+                                  statusController,
                                 );
                                 pedidoServ.add(sttsPedido);
                               }
