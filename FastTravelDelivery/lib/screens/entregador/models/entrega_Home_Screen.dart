@@ -1,12 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fasttravel/data/entregas_service.dart';
 import 'package:fasttravel/data/pedido_service.dart';
-import 'package:fasttravel/screens/entregador/models/entrega_Entregas_Screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../data/formPedidoStatus.dart';
 
 class entregaHome extends StatefulWidget {
   const entregaHome({Key? key}) : super(key: key);
@@ -17,8 +15,6 @@ class entregaHome extends StatefulWidget {
 
 class _entregaHomeState extends State<entregaHome> {
   PedidoService _pedidoService = new PedidoService();
-  bool icone = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +23,7 @@ class _entregaHomeState extends State<entregaHome> {
         backgroundColor: Colors.amber[600],
         title: Center(
           child: Text(
-            'Fast Travel Delivery - Entrega',
+            'Fast Travel Delivery - Entregador',
             style: GoogleFonts.macondo(
               color: Colors.blue[800],
             ),
@@ -58,6 +54,12 @@ class _entregaHomeState extends State<entregaHome> {
                       itemCount: docuSnap.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
+                        var item = formPedidoStatus(
+                            docuSnap[index].id,
+                            docuSnap[index].get('name'),
+                            docuSnap[index].get('pedido'),
+                            docuSnap[index].get('local'),
+                            docuSnap[index].get('status'));
                         return SingleChildScrollView(
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
@@ -84,7 +86,7 @@ class _entregaHomeState extends State<entregaHome> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    docuSnap[index].get('local'),
+                                    docuSnap[index].get('pedido'),
                                     style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 18,
@@ -97,7 +99,7 @@ class _entregaHomeState extends State<entregaHome> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    docuSnap[index].get('status'),
+                                    docuSnap[index].get('local'),
                                     style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 18,
@@ -110,32 +112,53 @@ class _entregaHomeState extends State<entregaHome> {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    icone = true;
-                                    if (icone = true) {
-                                      debugPrint('$icone');
-                                      showDialog<String>(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            AlertDialog(
-                                          backgroundColor: Colors.amber[600],
-                                          title: const Text('Atenção! '),
-                                          content: const Text(
-                                              'Ao confirmar você deverá retirar o produto na empresa e levar ao local informado'),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  context, 'Cancelar'),
-                                              child: const Text('Cancelar'),
-                                            ),
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  context, 'Confirmar'),
-                                              child: const Text('Confirmar'),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }
+                                    showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        backgroundColor: Colors.amber[600],
+                                        title: const Text('Aviso!! '),
+                                        content: const Text(
+                                            'Deseja Efetuar a entrega selecionada?'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                context, 'Cancelar'),
+                                            child: const Text('Recusar'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context, 'OK');
+                                              _pedidoService
+                                                  .updateSttsEntrega(item.id);
+
+                                              showDialog<String>(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        AlertDialog(
+                                                  backgroundColor:
+                                                      Colors.amber[600],
+                                                  title: const Text(' Alerta '),
+                                                  content: const Text(
+                                                      'Dirija-se a empresa para retirar o pedido!'),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(
+                                                            context, 'OK');
+                                                      },
+                                                      child: const Text('Ok'),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                            child: const Text('Confirmar'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
                                   },
                                   icon: const Icon(Icons.send,
                                       color: Colors.greenAccent, size: 20),

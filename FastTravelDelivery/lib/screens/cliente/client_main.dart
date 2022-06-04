@@ -40,9 +40,9 @@ class _NavBarState extends State<NavBar> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    homeClient(),
-    concluidosClient(),
-    entregasClient(),
+    clientHome(),
+    clientConcluid(),
+    clientEntregas(),
     configsClient(),
   ];
 
@@ -83,96 +83,6 @@ class _NavBarState extends State<NavBar> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black45,
         onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-class homeClient extends StatefulWidget {
-  const homeClient({Key? key}) : super(key: key);
-
-  @override
-  State<homeClient> createState() => _homeClientState();
-}
-
-class _homeClientState extends State<homeClient> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.black26,
-        appBar: AppBar(
-          backgroundColor: Colors.amber[600],
-          title: Center(
-            child: Text(
-              'Fast Travel Delivery',
-              style: GoogleFonts.macondo(
-                color: Colors.blue[800],
-              ),
-            ),
-          ),
-        ),
-        body: const clientHome(),
-      ),
-    );
-  }
-}
-
-class concluidosClient extends StatefulWidget {
-  const concluidosClient({Key? key}) : super(key: key);
-
-  @override
-  State<concluidosClient> createState() => _concluidosClientState();
-}
-
-class _concluidosClientState extends State<concluidosClient> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blue[300],
-        appBar: AppBar(
-          backgroundColor: Colors.green,
-          title: Center(
-            child: Text(
-              'Fast Travel Delivery',
-              style: GoogleFonts.macondo(
-                color: Colors.blue[800],
-              ),
-            ),
-          ),
-        ),
-        body: const clientConcluid(),
-      ),
-    );
-  }
-}
-
-class entregasClient extends StatefulWidget {
-  const entregasClient({Key? key}) : super(key: key);
-
-  @override
-  State<entregasClient> createState() => _entregasClientState();
-}
-
-class _entregasClientState extends State<entregasClient> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blue[300],
-        appBar: AppBar(
-          backgroundColor: Colors.deepPurpleAccent,
-          title: Center(
-            child: Text(
-              'Fast Travel Delivery',
-              style: GoogleFonts.macondo(
-                color: Colors.blue,
-              ),
-            ),
-          ),
-        ),
-        body: const clientEntregas(),
       ),
     );
   }

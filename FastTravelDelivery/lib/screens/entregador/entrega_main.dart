@@ -64,7 +64,7 @@ class _NavBarState extends State<NavBar> {
           BottomNavigationBarItem(
             icon: const Icon(Icons.list_alt),
             label: 'Pedidos',
-            backgroundColor: Colors.yellowAccent[700],
+            backgroundColor: Colors.amber[600],
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.checklist_rtl),
@@ -73,12 +73,12 @@ class _NavBarState extends State<NavBar> {
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.airport_shuttle_sharp),
-            label: 'entregas',
+            label: 'Veículo',
             backgroundColor: Colors.deepPurpleAccent,
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'config',
+            label: 'Config',
             backgroundColor: Colors.grey,
           ),
         ],

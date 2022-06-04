@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fasttravel/data/formPedidoStatus.dart';
 import 'package:fasttravel/data/pedido_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +55,12 @@ class _empresaHomeState extends State<empresaHome> {
                       itemCount: docuSnap.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
+                        var item = formPedidoStatus(
+                            docuSnap[index].id,
+                            docuSnap[index].get('name'),
+                            docuSnap[index].get('pedido'),
+                            docuSnap[index].get('local'),
+                            docuSnap[index].get('status'));
                         return SingleChildScrollView(
                           child: Padding(
                             padding: const EdgeInsets.all(15.0),
@@ -106,54 +113,53 @@ class _empresaHomeState extends State<empresaHome> {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    final snackBar = SnackBar(
-                                      content: const Text(
-                                          'Pedido de entrega solicitado com sucesso'),
-                                      action: SnackBarAction(
-                                        label: 'Ok',
-                                        onPressed: () {
-                                          var status =
-                                              docuSnap[index].get('status');
-                                          _pedidoService.alteraStts();
-                                          debugPrint(
-                                              docuSnap[index].get('status'));
+                                    showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        backgroundColor: Colors.amber[600],
+                                        title: const Text('Aviso!! '),
+                                        content: const Text(
+                                            'Deseja Enviar solicitação para o entregador?'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                context, 'Cancelar'),
+                                            child: const Text('Cancelar'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context, 'OK');
+                                              _pedidoService
+                                                  .updateStts(item.id);
 
-                                          icone = true;
-                                          if (icone = true) {
-                                            debugPrint('$icone');
-                                            showDialog<String>(
-                                              context: context,
-                                              builder: (BuildContext context) =>
-                                                  AlertDialog(
-                                                backgroundColor:
-                                                    Colors.amber[600],
-                                                title: const Text('Atenção: '),
-                                                content: const Text(
-                                                    'Aguardando entregador aceitar o pedido'),
-                                                actions: <Widget>[
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(context,
-                                                            'Cancelar'),
-                                                    child:
-                                                        const Text('Cancelar'),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () =>
+                                              showDialog<String>(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        AlertDialog(
+                                                  backgroundColor:
+                                                      Colors.amber[600],
+                                                  title: const Text(' Aviso! '),
+                                                  content: const Text(
+                                                      'Foi solicitado um entregador para o pedido!'),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      onPressed: () {
                                                         Navigator.pop(
-                                                            context, 'OK'),
-                                                    child: const Text('OK'),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          }
-                                        },
+                                                            context, 'OK');
+                                                      },
+                                                      child: const Text('Ok'),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                            child: const Text('Confirmar'),
+                                          ),
+                                        ],
                                       ),
                                     );
-
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
                                   },
                                   icon: const Icon(Icons.send,
                                       color: Colors.greenAccent, size: 20),
