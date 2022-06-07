@@ -115,54 +115,26 @@ class _clientConcluidState extends State<clientConcluid> {
                                 ),
                                 IconButton(
                                   onPressed: () {
-                                    _pedidoService.updateStts(item.id);
-                                    final snackBar = SnackBar(
-                                      content: const Text(
-                                          'Pedido de entrega solicitado com sucesso'),
-                                      action: SnackBarAction(
-                                        label: 'Ok',
-                                        onPressed: () {
-                                          debugPrint(
-                                              docuSnap[index].get('status'));
-                                          icone = true;
-                                          if (icone = true) {
-                                            debugPrint('$icone');
-                                            showDialog<String>(
-                                              context: context,
-                                              builder: (BuildContext context) =>
-                                                  AlertDialog(
-                                                backgroundColor:
-                                                    Colors.amber[600],
-                                                title: const Text('Atenção: '),
-                                                content: const Text(
-                                                    'Aguardando entregador aceitar o pedido'),
-                                                actions: <Widget>[
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(context,
-                                                            'Cancelar'),
-                                                    child:
-                                                        const Text('Cancelar'),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            context, 'OK'),
-                                                    child: const Text('OK'),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          }
-                                        },
+                                    showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        title: const Text('Pedido Concluido'),
+                                        content: const Text(
+                                            'Seu pedido foi concluído'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context, 'ok'),
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
+                                        backgroundColor: Colors.amber,
                                       ),
                                     );
-
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
                                   },
-                                  icon: const Icon(Icons.send,
-                                      color: Colors.greenAccent, size: 20),
+                                  icon: const Icon(Icons.check_circle,
+                                      color: Colors.green, size: 30),
                                 ),
                                 const SizedBox(
                                   height: 20,

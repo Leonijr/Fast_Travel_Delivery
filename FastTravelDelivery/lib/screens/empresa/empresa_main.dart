@@ -44,7 +44,7 @@ class _NavBarState extends State<NavBar> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     empresaHome(),
-    concluidosEmpresa(),
+    EmpresaConcluid(),
     entregasEmpresa(),
     configsEmpresa(),
   ];
@@ -86,36 +86,6 @@ class _NavBarState extends State<NavBar> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black45,
         onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-class concluidosEmpresa extends StatefulWidget {
-  const concluidosEmpresa({Key? key}) : super(key: key);
-
-  @override
-  State<concluidosEmpresa> createState() => _concluidosEmpresaState();
-}
-
-class _concluidosEmpresaState extends State<concluidosEmpresa> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blue[300],
-        appBar: AppBar(
-          backgroundColor: Colors.green,
-          title: Center(
-            child: Text(
-              'Fast Travel Delivery - Empresa',
-              style: GoogleFonts.macondo(
-                color: Colors.blue[800],
-              ),
-            ),
-          ),
-        ),
-        body: Center(child: const EmpresaConcluid()),
       ),
     );
   }

@@ -47,16 +47,4 @@ class UserServices extends ChangeNotifier {
     }
     notifyListeners();
   }
-
-  Future<void> _loadingCurrentUser(User? user) async {
-    final User? currentUser = user ?? _auth.currentUser;
-    if (currentUser != null) {
-      final DocumentSnapshot docUser = await _firebaseFirestore
-          .collection('FastTravel')
-          .doc(currentUser.uid)
-          .get();
-      userLocal = UserLocal.fromDocument(docUser);
-      notifyListeners();
-    }
-  }
 }

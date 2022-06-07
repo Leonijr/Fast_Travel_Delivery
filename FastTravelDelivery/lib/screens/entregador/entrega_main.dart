@@ -1,7 +1,7 @@
 import 'package:fasttravel/models/user_local.dart';
 import 'package:fasttravel/screens/entregador/models/entrega_Settings_Screen.dart';
 import 'package:fasttravel/screens/entregador/models/entrega_Concluid_Screen.dart';
-import 'package:fasttravel/screens/entregador/models/entrega_Entregas_Screen.dart';
+import 'package:fasttravel/screens/entregador/models/veiculo_Entregas_Screen.dart';
 import 'package:fasttravel/screens/entregador/models/entrega_Home_Screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -44,8 +44,8 @@ class _NavBarState extends State<NavBar> {
   static const List<Widget> _widgetOptions = <Widget>[
     entregaHome(),
     concluidosEntrega(),
-    entregasEntregador(),
-    configsEntrega(),
+    veiculoEntregas(),
+    entregadorSettings(),
   ];
 
   void _onItemTapped(int index) {
@@ -115,66 +115,6 @@ class _concluidosEntregaState extends State<concluidosEntrega> {
           ),
         ),
         body: const Center(child: EntregaConcluid()),
-      ),
-    );
-  }
-}
-
-class entregasEntregador extends StatefulWidget {
-  const entregasEntregador({Key? key}) : super(key: key);
-
-  @override
-  State<entregasEntregador> createState() => _entregasEntregadorState();
-}
-
-class _entregasEntregadorState extends State<entregasEntregador> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blue[300],
-        appBar: AppBar(
-          backgroundColor: Colors.deepPurpleAccent,
-          title: Center(
-            child: Text(
-              'Fast Travel Delivery - Entregador',
-              style: GoogleFonts.macondo(
-                color: Colors.blue,
-              ),
-            ),
-          ),
-        ),
-        body: const entregadorEntregas(),
-      ),
-    );
-  }
-}
-
-class configsEntrega extends StatefulWidget {
-  const configsEntrega({Key? key}) : super(key: key);
-
-  @override
-  State<configsEntrega> createState() => _configsEntregaState();
-}
-
-class _configsEntregaState extends State<configsEntrega> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blue[300],
-        appBar: AppBar(
-          backgroundColor: Colors.grey[600],
-          title: Center(
-            child: Text(
-              'Fast Travel Delivery - Entregador',
-              style: GoogleFonts.macondo(
-                color: Colors.blue[800],
-              ),
-            ),
-          ),
-        ),
-        body: const entregadorSettings(),
       ),
     );
   }

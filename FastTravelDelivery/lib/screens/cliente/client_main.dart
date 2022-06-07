@@ -62,7 +62,7 @@ class _NavBarState extends State<NavBar> {
           BottomNavigationBarItem(
             icon: const Icon(Icons.list_alt),
             label: 'Pedidos',
-            backgroundColor: Colors.yellowAccent[700],
+            backgroundColor: Colors.amber[600],
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.checklist_rtl),
