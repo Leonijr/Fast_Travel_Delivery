@@ -1,10 +1,9 @@
 class Client {
-  late final String? id;
-  late final String? name;
-  late final String? email;
-  late final String? endereco;
-  late final String? password;
-  late final String? confirmPass;
+  late final String name;
+  late final String email;
+  late final String endereco;
+  late final String password;
+  late final String confirmPass;
   late String tipo = 'Cliente';
 
 /* método construtor utilizado para inicializar o estado do objeto e também
@@ -30,7 +29,6 @@ disparar algum processo necessário quanto a instanciação da classe */
   // método para conversão para MAP
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'email': email,
       'endereco': endereco,

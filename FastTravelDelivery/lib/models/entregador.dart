@@ -1,5 +1,4 @@
 class Entregador {
-  late final String id;
   late final String name;
   late final String email;
   late final String cpf;
@@ -31,7 +30,6 @@ disparar algum processo necessário quanto a instanciação da classe */
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'name': name,
       'email': email,
       'cpf': cpf,

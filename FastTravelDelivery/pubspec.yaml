@@ -27,6 +27,12 @@ dev_dependencies:
 
   google_fonts: ^2.1.1
 
+
+flutter icons:
+image_path: "assets/logo_inicio.png"
+android: true
+ios: true
+
 flutter:
 
   uses-material-design: true
