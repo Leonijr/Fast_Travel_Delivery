@@ -15,6 +15,17 @@ class _empresaSettingsState extends State<empresaSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey[600],
+        title: Center(
+          child: Text(
+            'Fast Travel Delivery - Empresa',
+            style: GoogleFonts.macondo(
+              color: Colors.amber[700],
+            ),
+          ),
+        ),
+      ),
       backgroundColor: Colors.brown[600],
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,

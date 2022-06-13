@@ -1,6 +1,7 @@
 import 'package:fasttravel/login/login_screen.dart';
 import 'package:fasttravel/models/user_services.dart';
 import 'package:fasttravel/screens/cliente/client_Screen.dart';
+import 'package:fasttravel/screens/cliente/models/client_Settings_Screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,11 +29,10 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        initialRoute: '/log',
+        initialRoute: '/',
         debugShowCheckedModeBanner: false,
         routes: {
-          '/log': ((context) => const loginScreen()),
-          '/addClient': ((context) => const addClient()),
+          '/': ((context) => const loginScreen()),
         },
       ),
     );

@@ -45,8 +45,8 @@ class _NavBarState extends State<NavBar> {
   static const List<Widget> _widgetOptions = <Widget>[
     empresaHome(),
     EmpresaConcluid(),
-    entregasEmpresa(),
-    configsEmpresa(),
+    empresaEntregas(),
+    empresaSettings(),
   ];
 
   void _onItemTapped(int index) {
@@ -86,66 +86,6 @@ class _NavBarState extends State<NavBar> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black45,
         onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-class entregasEmpresa extends StatefulWidget {
-  const entregasEmpresa({Key? key}) : super(key: key);
-
-  @override
-  State<entregasEmpresa> createState() => _entregasEmpresaState();
-}
-
-class _entregasEmpresaState extends State<entregasEmpresa> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blue[300],
-        appBar: AppBar(
-          backgroundColor: Colors.deepPurpleAccent,
-          title: Center(
-            child: Text(
-              'Fast Travel Delivery - Empresa',
-              style: GoogleFonts.macondo(
-                color: Colors.blue,
-              ),
-            ),
-          ),
-        ),
-        body: const empresaEntregas(),
-      ),
-    );
-  }
-}
-
-class configsEmpresa extends StatefulWidget {
-  const configsEmpresa({Key? key}) : super(key: key);
-
-  @override
-  State<configsEmpresa> createState() => _configsEmpresaState();
-}
-
-class _configsEmpresaState extends State<configsEmpresa> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blue[300],
-        appBar: AppBar(
-          backgroundColor: Colors.grey[600],
-          title: Center(
-            child: Text(
-              'Fast Travel Delivery - Empresa',
-              style: GoogleFonts.macondo(
-                color: Colors.blue[800],
-              ),
-            ),
-          ),
-        ),
-        body: const empresaSettings(),
       ),
     );
   }

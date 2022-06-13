@@ -47,4 +47,12 @@ class UserServices extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+    } catch (erro) {
+      debugPrint('$erro');
+    }
+  }
 }

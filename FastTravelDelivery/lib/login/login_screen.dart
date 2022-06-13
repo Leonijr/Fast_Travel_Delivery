@@ -157,26 +157,21 @@ class _loginScreenState extends State<loginScreen> {
                               if (tipo != 'Cliente') {
                                 if (tipo != 'Empresa') {
                                   if (tipo != 'Entregador') {
-                                    const SnackBar(
-                                      content: Text('Acesso inválido'),
-                                    );
                                   } else {
-                                    Navigator.of(context).pushReplacement(
+                                    Navigator.of(context).push(
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 EntregaMainScreen(userLocal)));
                                   }
                                 } else {
-                                  Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              EmpresaMainScreen(userLocal)));
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          EmpresaMainScreen(userLocal)));
                                 }
                               } else {
-                                Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ClienteMainScreen()));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ClienteMainScreen()));
                               }
                             }, onFail: (e) {
                               Text('$e');

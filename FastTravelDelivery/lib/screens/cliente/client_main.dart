@@ -17,6 +17,7 @@ class _ClienteMainScreenState extends State<ClienteMainScreen> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           colorSchemeSeed: const Color.fromARGB(24, 25, 25, 112),
           useMaterial3: true),
@@ -43,7 +44,7 @@ class _NavBarState extends State<NavBar> {
     clientHome(),
     clientConcluid(),
     clientEntregas(),
-    configsClient(),
+    clientSettings(),
   ];
 
   void _onItemTapped(int index) {
@@ -83,36 +84,6 @@ class _NavBarState extends State<NavBar> {
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black45,
         onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-
-class configsClient extends StatefulWidget {
-  const configsClient({Key? key}) : super(key: key);
-
-  @override
-  State<configsClient> createState() => _configsClientState();
-}
-
-class _configsClientState extends State<configsClient> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.blue[300],
-        appBar: AppBar(
-          backgroundColor: Colors.grey[600],
-          title: Center(
-            child: Text(
-              'Fast Travel Delivery',
-              style: GoogleFonts.macondo(
-                color: Colors.blue[800],
-              ),
-            ),
-          ),
-        ),
-        body: const clientSettings(),
       ),
     );
   }

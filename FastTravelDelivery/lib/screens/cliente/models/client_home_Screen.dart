@@ -54,7 +54,11 @@ class _clientHomeState extends State<clientHome> {
                       title: const Text('Pedido'),
                       actions: <Widget>[
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            nameController.clear();
+                            pedidoController.clear();
+                            enderecoController.clear();
+                          },
                           icon: const Icon(Icons.delete),
                           color: Colors.red[400],
                         ),
