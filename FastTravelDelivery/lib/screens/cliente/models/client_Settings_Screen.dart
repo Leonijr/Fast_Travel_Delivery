@@ -48,7 +48,16 @@ class _clientSettingsState extends State<clientSettings> {
                   child: Column(
                     children: [
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          try {
+                            UserServices services = new UserServices();
+                            await services.signOut();
+                          } catch (e) {
+                            return debugPrint('$e');
+                          }
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const loginScreen()));
+                        },
                         icon: const Icon(
                           Icons.logout_sharp,
                           color: Colors.red,
